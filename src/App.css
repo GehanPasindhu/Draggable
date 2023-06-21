@@ -5,6 +5,20 @@
   text-align: center;
 }
 
+.dragging-element{
+  background-color: transparent !important;
+  border: 2px dotted yellow !important;
+  width: 150px;
+  height: 150px;
+}
+
+.drag-image {
+  background-color: blue;
+  color: white;
+  padding: 8px;
+}
+
+
 .logo {
   height: 6em;
   padding: 1.5em;
