@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Draggable from 'react-draggable';
 
 const ElementContainer = () => {
   const [elements, setElements] = useState([]);
@@ -8,21 +9,23 @@ const ElementContainer = () => {
     e.dataTransfer.effectAllowed = 'move';
   
     const draggingElement = document.createElement('div');
-    draggingElement.classList.add('dragging-element');
+    draggingElement.style.width = '150px';
+    draggingElement.style.height = '150px';
+    draggingElement.style.backgroundColor = 'transparent';
+    draggingElement.style.border = '2px dashed yellow';
     draggingElement.innerText = `Element ${buttonId}`;
   
     document.body.appendChild(draggingElement);
   
-    const rect = e.target.getBoundingClientRect();
-    const offsetX = rect.width / 2;
-    const offsetY = rect.height / 4;
-  
-    e.dataTransfer.setDragImage(draggingElement, offsetX, offsetY);
+    // Set the dragged element as the drag image
+    e.dataTransfer.setDragImage(draggingElement, 0, 0);
   
     setTimeout(() => {
       document.body.removeChild(draggingElement);
     }, 0);
   };
+  
+  
   
   
 
@@ -40,41 +43,81 @@ const ElementContainer = () => {
   const handleDrop = (e) => {
     e.preventDefault();
     const buttonId = e.dataTransfer.getData('buttonId');
+    
+    const dropX = e.clientX - e.currentTarget.getBoundingClientRect().left;
+    const dropY = e.clientY - e.currentTarget.getBoundingClientRect().top;
+    
+    const elementWidth = 150; 
+    const elementHeight = 150;
+    
+    const dropzoneWidth = e.currentTarget.offsetWidth;
+    const dropzoneHeight = e.currentTarget.offsetHeight;
+    
+    if (
+      dropX < 0 ||
+      dropX + elementWidth > dropzoneWidth ||
+      dropY < 0 ||
+      dropY + elementHeight > dropzoneHeight
+    ) {
+      return; 
+    }
+    
     const newElement = {
       id: Date.now(),
       name: `Element ${buttonId}`,
       position: {
-        x: e.clientX - e.currentTarget.getBoundingClientRect().left,
-        y: e.clientY - e.currentTarget.getBoundingClientRect().top,
+        x: dropX,
+        y: dropY,
       },
+      showDeleteButton: true, 
     };
-
+  
     setElements((prevElements) => [...prevElements, newElement]);
+  };
+  
+  const handleDelete = (elementId) => {
+    setElements((prevElements) =>
+      prevElements.filter((element) => element.id !== elementId)
+    );
   };
 
   return (
-    <div>
+    <div style={{margin:"10px"}}>
       <div
         className="dropzone"
         onDragOver={handleDragOver}
         onDrop={handleDrop}
-        style={{ height: '90vh', width: '90vw' }}
+        style={{ height: '85vh', width: '95vw', border:"2px solid red" }}
       >
         {elements.map((element) => (
+          <Draggable
+        grid={[25, 25]}
+        scale={1}
+            >
           <div
             key={element.id}
+            id={element.id}
             className="draggable-element"
             style={{
               position: 'absolute',
               left: element.position.x,
               top: element.position.y,
-              width: '50px',
-              height: '50px',
+              width: '150px',
+              height: '150px',
               backgroundColor: '#FF0000',
             }}
           >
             {element.name}
+            {element.showDeleteButton && ( 
+              <button
+                className="delete-button"
+                onClick={() => handleDelete(element.id)}
+              >
+                Delete
+              </button>
+            )}
           </div>
+          </Draggable>
         ))}
       </div>
       <div className="button-container">
