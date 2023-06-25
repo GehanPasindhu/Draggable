@@ -1,14 +1,38 @@
-
 .dragging-element{
   background-color: transparent !important;
   border: 2px dotted yellow !important;
-  width: 100px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
 }
 
 .drag-image {
   background-color: blue;
   color: white;
   padding: 8px;
+}
+
+
+.element-content {
+  padding: 10px;
+}
+
+.element-buttons {
+  display: none;
+  flex-direction: column;
+}
+
+.menu-buttons:hover .element-buttons {
+  display: flex;
+}
+
+.confirmation-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #ccc;
+  color: #ff000290;
 }
 
