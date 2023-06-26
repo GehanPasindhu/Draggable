@@ -1,0 +1,74 @@
+    {/* <Draggable> 
+              {/* <div
+                onClick={() => setActiveElementId(element.id)}
+                key={element.id}
+                id={element.id}
+                className={`draggable-element rounded-xl border-1 border-blue-50 p-2 ${
+                  activeElementId === element.id ? "z-30" : "z-10"
+                } absolute`}
+                style={{
+                  left: element.position.x,
+                  top: element.position.y,
+                  backgroundColor: element.backgroundColor,
+                }}
+              >
+                <div className="element-content">
+                  <div className="flex flex-row justify-between items-baseline gap-4">
+                    <div className="flex">
+                      <div className="text-xl">{element.name}</div>
+                    </div>
+                    <div className="flex">
+                      <div className="flex flex-col gap-2 menu-buttons">
+                        <div className="flex flex-row justify-end gap-1 ">
+                          <div className="w-1 h-1 rounded-full bg-white ring-1"></div>
+                          <div className="w-1 h-1 rounded-full bg-white ring-1"></div>
+                          <div className="w-1 h-1 rounded-full bg-white ring-1"></div>
+                        </div>
+                        <div className="flex flex-row justify-end">
+                          <div className="element-buttons bg-indigo-500 p-2 rounded-lg w-24 z-50">
+                            <button className="move-button cursor-move">
+                              Move
+                            </button>
+                            <button
+                              className="edit-button"
+                              onClick={() => {
+                                setShowEditPanel(true),
+                                  setEditElementId(element);
+                              }}
+                            >
+                              Edit
+                            </button>
+                            <button
+                              className="delete-button"
+                              onClick={() => handleDelete(element.id)}
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    {element.etype === "tableBtn" ? (
+                      <>
+                        <Tabele />
+                      </>
+                    ) : element.etype === "scorecard" ? (
+                      <>
+                        <Scorecard element={element}/>
+                      </>
+                    ) : element.etype === "chart" ? (
+                      <>
+                        <Chart />
+                      </>
+                    ) : element.etype === "textBox" ? (
+                      <>
+                        <TextBox />
+                      </>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                </div>
+              </div> */}
