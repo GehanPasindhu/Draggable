@@ -1,8 +1,8 @@
 .dragging-element{
   background-color: transparent !important;
   border: 2px dotted yellow !important;
-  width: 150px;
-  height: 150px;
+  width: 400px;
+  height: 400px;
 }
 
 .drag-image {
